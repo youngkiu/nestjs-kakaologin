@@ -1,9 +1,13 @@
 import { Controller, Get, Render } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly appService: AppService,
+  ) {}
 
   @Get('oauth')
   getHello(): string {
@@ -15,8 +19,9 @@ export class AppController {
   root() {
     return {
       data: {
-        title: 'Chattings',
-        copyright: 'ryu jun yeol',
+        host: 'kauth.kakao.com',
+        restApiKey: this.configService.get<string>('KAKAO_REST_API_KEY'),
+        redirectUri: this.configService.get<string>('KAKAO_REDIRECT_URI'),
       },
     };
   }

@@ -2,12 +2,12 @@
   <head>
     <meta charset='utf-8' />
     <link href='css/styles.css' rel='stylesheet' />
-    <title>{{data.title}}</title>
+    <title>Kakao Login</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-
-    {{data.copyright}}
+    <!--https://developers.kakao.com/docs/latest/en/kakaologin/rest-api#request-code-request-->
+    Host: {{data.host}} <br>
+    GET /oauth/authorize?client_id={{data.restApiKey}}&redirect_uri={{data.redirectUri}}&response_type=code HTTP/1.1
     <script src='js/scripts.js'></script>
   </body>
 </html>
