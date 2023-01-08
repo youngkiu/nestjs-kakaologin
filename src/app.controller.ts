@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Query, Render } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
 
@@ -9,9 +9,18 @@ export class AppController {
     private readonly appService: AppService,
   ) {}
 
-  @Get('oauth')
+  @Get('hello')
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('oauth')
+  @Render('callback')
+  async getCallback(@Query('code') code) {
+    const { accessToken, refreshToken } = await this.appService.getToken(code);
+    return {
+      data: { accessToken, refreshToken },
+    };
   }
 
   @Get()
@@ -19,7 +28,7 @@ export class AppController {
   root() {
     return {
       data: {
-        host: 'kauth.kakao.com',
+        host: this.configService.get<string>('KAKAO_REST_API_HOST'),
         restApiKey: this.configService.get<string>('KAKAO_REST_API_KEY'),
         redirectUri: this.configService.get<string>('KAKAO_REDIRECT_URI'),
       },

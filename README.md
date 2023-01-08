@@ -63,4 +63,5 @@ $ npm run test:cov
 ```bash
 KAKAO_REST_API_KEY=<REST API key>
 KAKAO_REDIRECT_URI=<Redirect URI>
+KAKAO_CLIENT_SECRET=<Client secret code>
 ```

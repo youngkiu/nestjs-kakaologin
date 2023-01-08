@@ -6,8 +6,9 @@
   </head>
   <body>
     <!--https://developers.kakao.com/docs/latest/en/kakaologin/rest-api#request-code-request-->
-    Host: {{data.host}} <br>
-    GET /oauth/authorize?client_id={{data.restApiKey}}&redirect_uri={{data.redirectUri}}&response_type=code HTTP/1.1
+    <a href="https://{{data.host}}/oauth/authorize?response_type=code&client_id={{data.restApiKey}}&redirect_uri={{data.redirectUri}}">
+      <img src='images/kakaoLogin.png' width='300'>
+    </a>
     <script src='js/scripts.js'></script>
   </body>
 </html>
