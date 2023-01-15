@@ -1,33 +1,40 @@
-import { Controller, Get, Query, Render } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Render,
+  HttpStatus,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { AuthKakaoService } from './auth-kakao.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth/kakao')
 export class AuthKakaoController {
-  constructor(
-    private readonly configService: ConfigService,
-    private readonly authKakaoService: AuthKakaoService,
-  ) {}
+  constructor(private readonly configService: ConfigService) {}
 
-  @Get('callback')
-  @Render('callback')
-  async getCallback(@Query('code') code) {
-    const { accessToken, refreshToken } = await this.authKakaoService.getToken(
-      code,
-    );
-    return {
-      data: { accessToken, refreshToken },
-    };
+  @Get()
+  @UseGuards(AuthGuard('kakao'))
+  kakaoLogin() {
+    return HttpStatus.OK;
   }
 
-  @Get('login')
-  @Render('login')
-  login() {
+  @Get('callback')
+  @UseGuards(AuthGuard('kakao'))
+  @Render('callback')
+  kakaoLoginCallback(@Req() req) {
+    const {
+      user: {
+        profile: { id, username },
+        token: { accessToken, refreshToken },
+      },
+    } = req;
     return {
       data: {
-        host: this.configService.get<string>('KAKAO_REST_API_HOST'),
-        restApiKey: this.configService.get<string>('KAKAO_REST_API_KEY'),
-        redirectUri: this.configService.get<string>('KAKAO_REDIRECT_URI'),
+        id,
+        username,
+        accessToken,
+        refreshToken,
       },
     };
   }

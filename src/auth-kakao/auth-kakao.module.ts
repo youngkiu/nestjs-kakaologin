@@ -1,16 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AuthKakaoController } from './auth-kakao.controller';
-import { AuthKakaoService } from './auth-kakao.service';
-import { HttpModule } from '@nestjs/axios';
+import { KakaoStrategy } from './kakao.strategy';
 
 @Module({
-  imports: [
-    HttpModule.register({
-      timeout: 5000,
-      maxRedirects: 5,
-    }),
-  ],
   controllers: [AuthKakaoController],
-  providers: [AuthKakaoService],
+  providers: [KakaoStrategy],
 })
 export class AuthKakaoModule {}

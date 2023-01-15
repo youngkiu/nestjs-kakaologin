@@ -19,14 +19,15 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/axios": "^1.0.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
+    "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
-    "axios": "^1.2.2",
     "hbs": "^4.2.0",
     "lodash": "^4.17.21",
+    "passport": "^0.6.0",
+    "passport-kakao": "^1.0.1",
     "qs": "^6.11.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5"
@@ -38,6 +39,7 @@
     "@types/express": "^4.17.13",
     "@types/jest": "^28.1.4",
     "@types/node": "^18.0.3",
+    "@types/passport-kakao": "^1.0.0",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
