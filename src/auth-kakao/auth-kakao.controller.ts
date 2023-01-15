@@ -1,13 +1,7 @@
-import {
-  Controller,
-  Get,
-  Render,
-  HttpStatus,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Render, HttpStatus, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from '../user/user.decorator';
 
 @Controller('auth/kakao')
 export class AuthKakaoController {
@@ -22,13 +16,11 @@ export class AuthKakaoController {
   @Get('callback')
   @UseGuards(AuthGuard('kakao'))
   @Render('callback')
-  kakaoLoginCallback(@Req() req) {
+  kakaoLoginCallback(@User() user) {
     const {
-      user: {
-        profile: { id, username },
-        token: { accessToken, refreshToken },
-      },
-    } = req;
+      profile: { id, username },
+      token: { accessToken, refreshToken },
+    } = user;
     return {
       data: {
         id,
