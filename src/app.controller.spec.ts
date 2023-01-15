@@ -1,6 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ConfigModule } from '@nestjs/config';
-import { HttpModule } from '@nestjs/axios';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -9,7 +7,6 @@ describe('AppController', () => {
 
   beforeAll(async () => {
     app = await Test.createTestingModule({
-      imports: [ConfigModule, HttpModule],
       controllers: [AppController],
       providers: [AppService],
     }).compile();
