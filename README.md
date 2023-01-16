@@ -61,10 +61,12 @@ $ npm run test:cov
 ## .env
 
 ```bash
+SESSION_SECRET=<crypto.randomBytes(20).toString('hex')>
+
 KAKAO_REST_API_HOST=<REST API Host>
 KAKAO_REST_API_KEY=<REST API key>
 KAKAO_REDIRECT_URI=<Redirect URI>
 KAKAO_CLIENT_SECRET=<Client secret code>
 ```
 
-Connect http://localhost:3000/auth/kakao
+Connect http://localhost:3000/auth/kakao/login
