@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigModule } from '@nestjs/config';
-import { AuthKakaoController } from './auth-kakao.controller';
+import { KakaoAuthController } from './kakao.auth.controller';
 
-describe('AuthKakaoController', () => {
-  let controller: AuthKakaoController;
+describe('KakaoAuthController', () => {
+  let controller: KakaoAuthController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [ConfigModule],
-      controllers: [AuthKakaoController],
+      controllers: [KakaoAuthController],
     }).compile();
 
-    controller = module.get<AuthKakaoController>(AuthKakaoController);
+    controller = module.get<KakaoAuthController>(KakaoAuthController);
   });
 
   it('should be defined', () => {

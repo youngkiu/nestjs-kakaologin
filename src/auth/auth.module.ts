@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AuthKakaoController } from './auth-kakao.controller';
+import { KakaoAuthController } from './kakao.auth.controller';
 import { KakaoStrategy } from './kakao.strategy';
 
 @Module({
-  controllers: [AuthKakaoController],
+  controllers: [KakaoAuthController],
   providers: [KakaoStrategy],
 })
-export class AuthKakaoModule {}
+export class AuthModule {}
