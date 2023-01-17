@@ -61,7 +61,7 @@ $ npm run test:cov
 ## .env
 
 ```bash
-SESSION_SECRET=<crypto.randomBytes(20).toString('hex')>
+COOKIE_SECRET=<crypto.randomBytes(20).toString('hex')>
 
 KAKAO_REST_API_HOST=<REST API Host>
 KAKAO_REST_API_KEY=<REST API key>

@@ -14,9 +14,12 @@ async function bootstrap() {
 
   app.use(
     session({
-      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
+      secret: process.env.COOKIE_SECRET,
+      cookie: {
+        httpOnly: true,
+      },
     }),
   );
   app.use(passport.initialize());
