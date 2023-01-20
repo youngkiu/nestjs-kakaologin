@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Logger,
   Render,
   Res,
   Session,
@@ -9,34 +8,22 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { User } from '../user/user.decorator';
-import { AuthGuard } from '@nestjs/passport';
 import { SessionAuthGuard } from './session.auth.guard';
+import { KakaoAuthGuard } from './kakao.auth.guard';
 
 @Controller('auth/kakao')
-export class KakaoAuthController {
-  private readonly logger = new Logger(KakaoAuthController.name);
-
+export class AuthController {
   constructor(private readonly configService: ConfigService) {}
 
   @Get('callback')
-  @UseGuards(AuthGuard('kakao'))
-  callback(@User() user, @Session() session: Record<string, any>, @Res() res) {
-    const {
-      profile: { provider, id },
-      token: { accessToken },
-    } = user;
-
-    session.provider = provider;
-    session.userId = id;
-    session.accessToken = accessToken;
-
+  @UseGuards(KakaoAuthGuard)
+  callback(@Res() res) {
     res.redirect('protected');
   }
 
   @Get('login')
   @Render('login')
-  login(@Session() session: Record<string, any>) {
-    this.logger.debug({ session });
+  login() {
     return {
       data: {
         host: this.configService.get<string>('KAKAO_REST_API_HOST'),
@@ -49,14 +36,13 @@ export class KakaoAuthController {
   @Get('protected')
   @UseGuards(SessionAuthGuard)
   @Render('protected')
-  protected(@Session() session: Record<string, any>) {
-    this.logger.debug({ session });
-    const { provider, userId, accessToken } = session;
+  protected(@User() user) {
+    const { provider, id, username } = user;
     return {
       data: {
         provider,
-        userId,
-        accessToken,
+        id,
+        username,
       },
     };
   }

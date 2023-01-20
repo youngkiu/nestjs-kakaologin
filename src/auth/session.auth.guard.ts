@@ -5,11 +5,6 @@ import { AuthGuard } from '@nestjs/passport';
 export class SessionAuthGuard extends AuthGuard('session') {
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
-    return this.validateRequest(request);
-  }
-
-  validateRequest(request) {
-    const { provider, userId, accessToken } = request.session;
-    return !!(provider && userId && accessToken);
+    return request.isAuthenticated();
   }
 }
