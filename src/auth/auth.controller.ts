@@ -7,18 +7,22 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { User } from '../user/user.decorator';
-import { SessionAuthGuard } from './session.auth.guard';
+import { User } from '../users/users.decorator';
+import { JwtAuthGuard } from './jwt.auth.guard';
 import { KakaoAuthGuard } from './kakao.auth.guard';
+import { AuthService } from './auth.service';
 
 @Controller('auth/kakao')
 export class AuthController {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Get('callback')
   @UseGuards(KakaoAuthGuard)
-  callback(@Res() res) {
-    res.redirect('protected');
+  callback(@User() user) {
+    return this.authService.login(user);
   }
 
   @Get('login')
@@ -34,7 +38,7 @@ export class AuthController {
   }
 
   @Get('protected')
-  @UseGuards(SessionAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Render('protected')
   protected(@User() user) {
     const { provider, id, username } = user;

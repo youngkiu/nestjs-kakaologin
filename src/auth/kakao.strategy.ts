@@ -3,14 +3,14 @@ import { Strategy } from 'passport-kakao';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as _ from 'lodash';
-import { UserService } from '../user/user.service';
-import { User } from '../user/user.entities';
+import { UsersService } from '../users/users.service';
+import { User } from '../users/users.entities';
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly configService: ConfigService,
-    private readonly userService: UserService,
+    private readonly usersService: UsersService,
   ) {
     super({
       clientID: configService.get<string>('KAKAO_REST_API_KEY'),
@@ -27,7 +27,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
     });
 
     const { provider, id, username } = profileRest;
-    const user = await this.userService.findOne(provider, id);
+    const user = await this.usersService.findOne(provider, id);
     if (user) {
       return done(null, user);
     }
@@ -46,7 +46,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
       accessToken,
       refreshToken,
     };
-    await this.userService.create(userData);
+    await this.usersService.create(userData);
     done(null, userData);
   }
 }

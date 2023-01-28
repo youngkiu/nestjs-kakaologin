@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './user.entities';
+import { User } from './users.entities';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   private users: User[] = [];
 
   async findOne(provider: string, id: number): Promise<User | undefined> {
