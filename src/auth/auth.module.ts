@@ -1,15 +1,15 @@
-import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
-import { KakaoStrategy } from './kakao.strategy';
-import { PassportModule } from '@nestjs/passport';
-import { KakaoAuthGuard } from './kakao.auth.guard';
+import { AuthService } from './auth.service';
+import { ConfigService } from '@nestjs/config';
 import { JwtAuthGuard } from './jwt.auth.guard';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
+import { KakaoAuthGuard } from './kakao.auth.guard';
+import { KakaoStrategy } from './kakao.strategy';
+import { Module } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from '../users/users.module';
 import { UsersService } from '../users/users.service';
-import { JwtModule } from '@nestjs/jwt';
-import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
-import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { ConfigService } from '@nestjs/config';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),
-        signOptions: { expiresIn: '1d' },
+        signOptions: { expiresIn: '60s' },
       }),
     }),
   ],

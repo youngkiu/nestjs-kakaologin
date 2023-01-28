@@ -1,11 +1,17 @@
 {
   "name": "oauth-orm-starter",
   "private": true,
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Nest TypeScript starter repository",
   "license": "MIT",
-  "keywords": ["passport", "kakao", "session", "token", "orm"],
-  "author": "YoungKi Lyu <youngkiiu@gmail.com>",
+  "keywords": [
+    "passport",
+    "kakao",
+    "session",
+    "token",
+    "orm"
+  ],
+  "author": "YoungKi Lyu <youngkiu@gmail.com>",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -29,6 +35,7 @@
     "@nestjs/platform-express": "^9.0.0",
     "hbs": "^4.2.0",
     "lodash": "^4.17.21",
+    "nestjs-pino": "^3.1.2",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "passport-kakao": "^1.0.1",
@@ -53,6 +60,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "jest": "^28.1.2",
+    "pino-pretty": "^9.1.1",
     "prettier": "^2.7.1",
     "source-map-support": "^0.5.21",
     "supertest": "^6.2.4",

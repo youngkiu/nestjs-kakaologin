@@ -1,10 +1,10 @@
+import * as _ from 'lodash';
+import { ConfigService } from '@nestjs/config';
+import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-kakao';
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import * as _ from 'lodash';
-import { UsersService } from '../users/users.service';
 import { User } from '../users/users.entities';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy) {

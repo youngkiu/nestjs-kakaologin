@@ -6,11 +6,11 @@ import {
   Session,
   UseGuards,
 } from '@nestjs/common';
+import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
-import { User } from '../users/users.decorator';
 import { JwtAuthGuard } from './jwt.auth.guard';
 import { KakaoAuthGuard } from './kakao.auth.guard';
-import { AuthService } from './auth.service';
+import { User } from '../users/users.decorator';
 
 @Controller('auth/kakao')
 export class AuthController {
