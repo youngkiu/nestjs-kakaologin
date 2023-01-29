@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { User } from './users.entities';
+import { UserDto } from './user.dto';
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [];
+  private users: UserDto[] = [];
 
-  async findOne(provider: string, id: number): Promise<User | undefined> {
+  async findOne(provider: string, id: number): Promise<UserDto | undefined> {
     return this.users.find(
       (user) => user.provider === provider && user.id === id,
     );
   }
 
-  async create(userData: User) {
+  async create(userData: UserDto) {
     this.users.push(userData);
   }
 }

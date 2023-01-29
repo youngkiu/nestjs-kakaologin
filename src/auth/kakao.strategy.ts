@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-kakao';
-import { User } from '../users/users.entities';
+import { UserDto } from '../users/user.dto';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -33,7 +33,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
     }
 
     const { nickname, profileImage, thumbnailImage } = properties;
-    const userData: User = {
+    const userData: UserDto = {
       // profile
       provider,
       id,

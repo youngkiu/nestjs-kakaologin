@@ -8,13 +8,11 @@ import { KakaoAuthGuard } from './kakao.auth.guard';
 import { KakaoStrategy } from './kakao.strategy';
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
-import { UsersModule } from '../users/users.module';
 import { UsersService } from '../users/users.service';
 
 @Module({
   imports: [
     PassportModule,
-    UsersModule,
     JwtModule.registerAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
@@ -32,5 +30,6 @@ import { UsersService } from '../users/users.service';
     UsersService,
     AuthService,
   ],
+  exports: [JwtAuthGuard],
 })
 export class AuthModule {}
