@@ -1,8 +1,9 @@
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Render, UseGuards } from '@nestjs/common';
+import { Controller, Get, Render, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
 import { KakaoAuthGuard } from './kakao.auth.guard';
+import { Response } from 'express';
 import { User } from '../users/users.decorator';
 import { UserDto } from '../users/user.dto';
 
@@ -22,8 +23,10 @@ export class AuthController {
   })
   @Get('callback')
   @UseGuards(KakaoAuthGuard)
-  callback(@User() user: UserDto) {
-    return this.authService.login(user);
+  async callback(@User() user: UserDto, @Res() res: Response) {
+    const { access_token } = await this.authService.login(user);
+    res.cookie('token', access_token, { httpOnly: true });
+    res.redirect('/user/protected');
   }
 
   @ApiOperation({ summary: 'login' })

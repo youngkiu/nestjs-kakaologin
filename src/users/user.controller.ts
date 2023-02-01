@@ -1,5 +1,5 @@
 import { ApiHeader, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Render, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { User } from './users.decorator';
 import { UserDto } from './user.dto';
@@ -22,12 +22,15 @@ export class UserController {
   })
   @Get('protected')
   @UseGuards(JwtAuthGuard)
+  @Render('protected')
   protected(@User() user: UserDto) {
     const { provider, id, username } = user;
     return {
-      provider,
-      id,
-      username,
+      data: {
+        provider,
+        id,
+        username,
+      },
     };
   }
 }
