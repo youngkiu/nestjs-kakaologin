@@ -62,6 +62,7 @@ $ npm run test:cov
 
 ```bash
 JWT_SECRET=<crypto.randomBytes(16).toString('hex')> or https://randomkeygen.com/, https://keygen.io/
+AUTH_COOKIE_NAME=access_token
 
 KAKAO_REST_API_HOST=<REST API Host>
 KAKAO_REST_API_KEY=<REST API key>

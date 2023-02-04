@@ -1,4 +1,4 @@
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Render, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
@@ -15,21 +15,23 @@ export class AuthController {
     private readonly authService: AuthService,
   ) {}
 
-  @ApiOperation({ summary: 'Redirect URI registered in the OAuth provider' })
-  @ApiQuery({ name: 'code', type: 'string' })
-  @ApiResponse({
-    status: 200,
-    description: 'Logged in successfully via the OAuth provider.',
-  })
+  @ApiExcludeEndpoint()
   @Get('callback')
   @UseGuards(KakaoAuthGuard)
   async callback(@User() user: UserDto, @Res() res: Response) {
     const { access_token } = await this.authService.login(user);
-    res.cookie('token', access_token, { httpOnly: true });
+    res.cookie(
+      this.configService.get<string>('AUTH_COOKIE_NAME'),
+      access_token,
+      { httpOnly: true },
+    );
     res.redirect('/user/protected');
   }
 
-  @ApiOperation({ summary: 'login' })
+  @ApiOperation({
+    summary: 'login',
+    description: 'Access the path directly in web browser, not Swagger',
+  })
   @Get('login')
   @Render('login')
   login() {
