@@ -1,5 +1,5 @@
-import { ApiExcludeEndpoint, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Render, Res, UseGuards } from '@nestjs/common';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
 import { KakaoAuthGuard } from './kakao.auth.guard';
@@ -26,21 +26,5 @@ export class AuthController {
       { httpOnly: true },
     );
     res.redirect('/chat');
-  }
-
-  @ApiOperation({
-    summary: 'login',
-    description: 'Access the path directly in web browser, not Swagger',
-  })
-  @Get('login')
-  @Render('login')
-  login() {
-    return {
-      data: {
-        host: this.configService.get<string>('KAKAO_REST_API_HOST'),
-        restApiKey: this.configService.get<string>('KAKAO_REST_API_KEY'),
-        redirectUri: this.configService.get<string>('KAKAO_REDIRECT_URI'),
-      },
-    };
   }
 }
