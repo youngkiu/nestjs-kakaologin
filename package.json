@@ -1,5 +1,5 @@
 {
-  "name": "oauth-orm-starter",
+  "name": "oauth-socket.io-starter",
   "private": true,
   "version": "1.2.2",
   "description": "Nest TypeScript starter repository",
@@ -45,7 +45,8 @@
     "passport-kakao": "^1.0.1",
     "qs": "^6.11.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.5.5"
+    "rxjs": "^7.5.5",
+    "socket.io": "^4.5.4"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
