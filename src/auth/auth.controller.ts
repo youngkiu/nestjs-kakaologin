@@ -25,7 +25,7 @@ export class AuthController {
       access_token,
       { httpOnly: true },
     );
-    res.redirect('/user/protected');
+    res.redirect('/chat');
   }
 
   @ApiOperation({

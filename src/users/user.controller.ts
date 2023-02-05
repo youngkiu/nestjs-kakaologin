@@ -22,8 +22,8 @@ export class UserController {
     status: 401,
     description: 'Failed to get user information with invalid JWT token.',
   })
-  @Get('protected')
   @UseGuards(JwtAuthGuard)
+  @Get('protected')
   @Render('protected')
   protected(@User() user: UserDto) {
     const { provider, id, username } = user;
