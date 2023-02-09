@@ -25,9 +25,16 @@
   $(function(){
     var socket = io();
 
-    socket.on("users", function(data) {
+    fetch("/user")
+      .then(r=>r.json())
+      .then(data => {
+        console.log(data);
+        socket.emit("login", data);
+      });
+
+    socket.on("onlineList", function(data) {
       console.log(data);
-      $("#numOfUsers").html("<strong>" + 'Number of Users: ' + "</strong>" + data.numOfUsers);
+      $("#numOfUsers").html("<strong>" + 'Users: ' + "</strong>" + data.map((user) => user.username));
     });
 
     socket.on("chat", function(data) {
