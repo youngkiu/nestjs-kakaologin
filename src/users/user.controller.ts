@@ -33,6 +33,8 @@ export class UserController {
     const userData: UserDto = await this.usersService.findOne(provider, id);
     const { username, thumbnailImage } = userData;
     return {
+      provider,
+      id,
       username,
       thumbnailImage,
     };
