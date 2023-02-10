@@ -25,7 +25,7 @@
   $(function(){
     var socket = io();
 
-    fetch("/user")
+    fetch("/user/profile")
       .then(r=>r.json())
       .then(data => {
         console.log(data);
@@ -46,8 +46,18 @@
       e.preventDefault();
       var $msgForm = $("#msgForm");
 
-      socket.emit("chat", { msg: $msgForm.val() });
-      $msgForm.val("");
+      fetch("/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: $msgForm.val(),
+        })
+      })
+        .then(data => {
+          $msgForm.val("");
+        });
     });
   });
 </script>

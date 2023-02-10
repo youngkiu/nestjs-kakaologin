@@ -3,8 +3,8 @@ import { Controller, Get, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
 import { KakaoAuthGuard } from './kakao.auth.guard';
+import { RequestUser } from '../users/users.decorator';
 import { Response } from 'express';
-import { User } from '../users/users.decorator';
 import { UserDto } from '../users/user.dto';
 
 @ApiTags('AUTH')
@@ -18,8 +18,8 @@ export class AuthController {
   @ApiExcludeEndpoint()
   @Get('callback')
   @UseGuards(KakaoAuthGuard)
-  async callback(@User() user: UserDto, @Res() res: Response) {
-    const { access_token } = await this.authService.login(user);
+  async callback(@RequestUser() userData: UserDto, @Res() res: Response) {
+    const { access_token } = await this.authService.login(userData);
     res.cookie(
       this.configService.get<string>('AUTH_COOKIE_NAME'),
       access_token,

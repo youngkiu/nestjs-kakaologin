@@ -4,5 +4,4 @@ import { UserDto } from '../users/user.dto';
 export class JwtPayloadDto extends PickType(UserDto, [
   'provider',
   'id',
-  'username',
 ] as const) {}
