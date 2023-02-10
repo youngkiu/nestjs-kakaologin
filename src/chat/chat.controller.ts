@@ -1,6 +1,7 @@
 import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Get, Post, Render, UseGuards } from '@nestjs/common';
 import { ChatService } from './chat.service';
+import { ConfigService } from '@nestjs/config';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { JwtPayloadDto } from '../auth/jwt.payload.dto';
 import { RequestUser } from '../users/users.decorator';
@@ -9,13 +10,20 @@ import { RequestUser } from '../users/users.decorator';
 @ApiCookieAuth()
 @Controller('chat')
 export class ChatController {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly chatService: ChatService,
+  ) {}
   @ApiOperation({ summary: 'JWT guarded' })
   @UseGuards(JwtAuthGuard)
   @Get()
   @Render('chat')
   getChat() {
-    return {};
+    return {
+      data: {
+        mixpanel_token: this.configService.get<string>('MIXPANEL_TOKEN'),
+      },
+    };
   }
 
   @ApiOperation({ summary: 'JWT guarded' })

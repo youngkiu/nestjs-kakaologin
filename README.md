@@ -61,11 +61,13 @@ $ npm run test:cov
 ## .env
 
 ```bash
+MIXPANEL_TOKEN=<Mixpanel Token>
+
 JWT_SECRET=<crypto.randomBytes(16).toString('hex')> or https://randomkeygen.com/, https://keygen.io/
 AUTH_COOKIE_NAME=access_token
 
 KAKAO_REST_API_HOST=<REST API Host>
-KAKAO_REST_API_KEY=<REST API key>
+KAKAO_REST_API_KEY=<REST API Key>
 KAKAO_REDIRECT_URI=<Redirect URI>
 KAKAO_CLIENT_SECRET=<Client secret code>
 ```

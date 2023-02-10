@@ -27,6 +27,7 @@ export class AppController {
         host: this.configService.get<string>('KAKAO_REST_API_HOST'),
         restApiKey: this.configService.get<string>('KAKAO_REST_API_KEY'),
         redirectUri: this.configService.get<string>('KAKAO_REDIRECT_URI'),
+        mixpanel_token: this.configService.get<string>('MIXPANEL_TOKEN'),
       },
     };
   }
