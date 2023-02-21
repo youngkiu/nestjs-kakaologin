@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, HttpException, Render } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
@@ -13,6 +13,11 @@ export class AppController {
   @Get('hello')
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('error')
+  getError(): string {
+    throw new HttpException('Hi Sentry!', 400);
   }
 
   @ApiOperation({

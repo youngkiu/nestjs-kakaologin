@@ -1,8 +1,9 @@
 import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
-import { Controller, Get, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Res, UseFilters, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
 import { KakaoAuthGuard } from './kakao.auth.guard';
+import { KakaoExceptionFilter } from './kakao.exception.filter';
 import { RequestUser } from '../users/users.decorator';
 import { Response } from 'express';
 import { UserDto } from '../users/user.dto';
@@ -18,6 +19,7 @@ export class AuthController {
   @ApiExcludeEndpoint()
   @Get('callback')
   @UseGuards(KakaoAuthGuard)
+  @UseFilters(new KakaoExceptionFilter())
   async callback(@RequestUser() userData: UserDto, @Res() res: Response) {
     const { access_token } = await this.authService.login(userData);
     res.cookie(

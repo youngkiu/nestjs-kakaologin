@@ -7,6 +7,7 @@ export class ChatService {
   private readonly logger = new Logger(ChatService.name);
 
   constructor(private readonly eventsGateway: EventsGateway) {}
+
   createChannelChats(content: string, reqUser: JwtPayloadDto) {
     const { provider, id } = reqUser;
     this.logger.debug(`msg: ${content}, user: ${provider}-${id}`);

@@ -62,6 +62,7 @@ $ npm run test:cov
 
 ```bash
 MIXPANEL_TOKEN=<Mixpanel Token>
+SENTRY_DSN=<Sentry DSN>
 
 JWT_SECRET=<crypto.randomBytes(16).toString('hex')> or https://randomkeygen.com/, https://keygen.io/
 AUTH_COOKIE_NAME=access_token

@@ -36,6 +36,8 @@
     "@nestjs/platform-socket.io": "^9.2.1",
     "@nestjs/swagger": "^6.1.4",
     "@nestjs/websockets": "^9.2.1",
+    "@sentry/node": "^7.38.0",
+    "@sentry/tracing": "^7.38.0",
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
     "hbs": "^4.2.0",
