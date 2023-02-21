@@ -73,4 +73,4 @@ KAKAO_REDIRECT_URI=<Redirect URI>
 KAKAO_CLIENT_SECRET=<Client secret code>
 ```
 
-Connect http://localhost:3000/auth/kakao/login
+Connect http://localhost:3000
