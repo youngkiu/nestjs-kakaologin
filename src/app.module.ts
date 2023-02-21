@@ -1,4 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -6,6 +7,7 @@ import { ChatModule } from './chat/chat.module';
 import { ConfigModule } from '@nestjs/config';
 import { EventsModule } from './events/events.module';
 import { LoggerMiddleware } from './logger/logger.middleware';
+import { SentryInterceptor } from './sentry.interceptor';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -19,7 +21,13 @@ import { UsersModule } from './users/users.module';
     EventsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useValue: new SentryInterceptor(),
+    },
+    AppService,
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
