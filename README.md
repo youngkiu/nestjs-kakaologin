@@ -71,7 +71,7 @@ KAKAO_REST_API_KEY=<Kakao REST API Key>
 KAKAO_REDIRECT_URI=<Kakao Redirect URI>
 KAKAO_CLIENT_SECRET=<Kakao Client secret code>
 
-GOOGLE_CLINET_ID=<Google Client ID>
+GOOGLE_CLIENT_ID=<Google Client ID>
 GOOGLE_CLIENT_SECRET=<Google Client Secret>
 GOOGLE_REDIRECT_URI=<Google Redirect URI>
 ```

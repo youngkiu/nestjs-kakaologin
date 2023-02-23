@@ -31,7 +31,7 @@ export class AppController {
       data: {
         kakaoRestApiKey: this.configService.get<string>('KAKAO_REST_API_KEY'),
         kakaoRedirectUri: this.configService.get<string>('KAKAO_REDIRECT_URI'),
-        googleClientId: this.configService.get<string>('GOOGLE_CLINET_ID'),
+        googleClientId: this.configService.get<string>('GOOGLE_CLIENT_ID'),
         googleRedirectUri: this.configService.get<string>(
           'GOOGLE_REDIRECT_URI',
         ),
