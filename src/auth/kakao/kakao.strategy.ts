@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-kakao';
-import { UserDto } from '../users/user.dto';
-import { UsersService } from '../users/users.service';
+import { UserDto } from '../../users/user.dto';
+import { UsersService } from '../../users/users.service';
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy) {

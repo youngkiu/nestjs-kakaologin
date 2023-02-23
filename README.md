@@ -63,6 +63,8 @@ $ npm run test:cov
 ```bash
 MIXPANEL_TOKEN=<Mixpanel Token>
 SENTRY_DSN=<Sentry DSN>
+SENDGRID_API_KEY=<Sendgrid API Key>
+SENDGRID_EMAIL_ADDRESS=<Sendgrid Email Address>
 
 JWT_SECRET=<crypto.randomBytes(16).toString('hex')> or https://randomkeygen.com/, https://keygen.io/
 AUTH_COOKIE_NAME=access_token

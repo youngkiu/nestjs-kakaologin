@@ -7,7 +7,7 @@ import { ChatModule } from './chat/chat.module';
 import { ConfigModule } from '@nestjs/config';
 import { EventsModule } from './events/events.module';
 import { LoggerMiddleware } from './logger/logger.middleware';
-import { SentryInterceptor } from './sentry.interceptor';
+import { SentryInterceptor } from './sentry/sentry.interceptor';
 import { UsersModule } from './users/users.module';
 
 @Module({
