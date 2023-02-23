@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsNumber, IsString, IsUrl } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsUrl,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserDto {
@@ -28,6 +34,13 @@ export class UserDto {
     required: true,
   })
   public username: string;
+
+  @IsEmail()
+  @ApiProperty({
+    example: 'youngkiu@gmail.com',
+    description: 'Email of OAuth provider',
+  })
+  public email: string;
 
   @IsString()
   @ApiProperty({

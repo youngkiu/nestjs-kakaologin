@@ -1,6 +1,8 @@
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
+import { GoogleAuthGuard } from './google.auth.guard';
+import { GoogleStrategy } from './google.strategy';
 import { JwtAuthGuard } from './jwt.auth.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
@@ -25,6 +27,8 @@ import { UsersService } from '../users/users.service';
   providers: [
     KakaoStrategy,
     KakaoAuthGuard,
+    GoogleStrategy,
+    GoogleAuthGuard,
     JwtStrategy,
     JwtAuthGuard,
     UsersService,

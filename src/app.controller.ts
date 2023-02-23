@@ -29,10 +29,13 @@ export class AppController {
   login() {
     return {
       data: {
-        host: this.configService.get<string>('KAKAO_REST_API_HOST'),
-        restApiKey: this.configService.get<string>('KAKAO_REST_API_KEY'),
-        redirectUri: this.configService.get<string>('KAKAO_REDIRECT_URI'),
-        mixpanel_token: this.configService.get<string>('MIXPANEL_TOKEN'),
+        kakaoRestApiKey: this.configService.get<string>('KAKAO_REST_API_KEY'),
+        kakaoRedirectUri: this.configService.get<string>('KAKAO_REDIRECT_URI'),
+        googleClientId: this.configService.get<string>('GOOGLE_CLINET_ID'),
+        googleRedirectUri: this.configService.get<string>(
+          'GOOGLE_REDIRECT_URI',
+        ),
+        mixpanelToken: this.configService.get<string>('MIXPANEL_TOKEN'),
       },
     };
   }

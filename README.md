@@ -67,10 +67,13 @@ SENTRY_DSN=<Sentry DSN>
 JWT_SECRET=<crypto.randomBytes(16).toString('hex')> or https://randomkeygen.com/, https://keygen.io/
 AUTH_COOKIE_NAME=access_token
 
-KAKAO_REST_API_HOST=<REST API Host>
-KAKAO_REST_API_KEY=<REST API Key>
-KAKAO_REDIRECT_URI=<Redirect URI>
-KAKAO_CLIENT_SECRET=<Client secret code>
+KAKAO_REST_API_KEY=<Kakao REST API Key>
+KAKAO_REDIRECT_URI=<Kakao Redirect URI>
+KAKAO_CLIENT_SECRET=<Kakao Client secret code>
+
+GOOGLE_CLINET_ID=<Google Client ID>
+GOOGLE_CLIENT_SECRET=<Google Client Secret>
+GOOGLE_REDIRECT_URI=<Google Redirect URI>
 ```
 
 Connect http://localhost:3000

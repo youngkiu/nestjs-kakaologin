@@ -21,7 +21,7 @@ async function bootstrap() {
   app.setViewEngine('hbs');
 
   const config = new DocumentBuilder()
-    .setTitle('Kakao login on NestJS framework')
+    .setTitle('OAuth login on NestJS framework')
     .setDescription('The OAuth login starter API description')
     .setVersion('1.0')
     .addTag('nestjs-kakaologin')

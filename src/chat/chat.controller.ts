@@ -21,7 +21,7 @@ export class ChatController {
   getChat() {
     return {
       data: {
-        mixpanel_token: this.configService.get<string>('MIXPANEL_TOKEN'),
+        mixpanelToken: this.configService.get<string>('MIXPANEL_TOKEN'),
       },
     };
   }

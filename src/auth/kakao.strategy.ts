@@ -38,6 +38,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
       provider,
       id,
       username,
+      email: undefined,
       // properties
       nickname,
       profileImage,
