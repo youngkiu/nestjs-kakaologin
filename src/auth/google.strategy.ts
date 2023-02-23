@@ -34,13 +34,14 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       return cb(null, user);
     }
 
-    const [email] = emails;
-    const [photo] = photos;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [{ value: email, verified }] = emails;
+    const [{ value: photo }] = photos;
     const userData: UserDto = {
       provider,
       id,
       username: displayName,
-      email,
+      email: email.value,
       nickname: undefined,
       profileImage: photo,
       thumbnailImage: undefined,
