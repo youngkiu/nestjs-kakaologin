@@ -22,9 +22,9 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
   async validate(accessToken, refreshToken, profile, done) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { _raw, _json, ...profileRest } = profile;
-    const properties = _.mapKeys(_json.properties, (v, k) => {
-      return _.camelCase(k);
-    });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { connected_at, properties, kakao_account } = _json;
+    const { email } = kakao_account;
 
     const { provider, id, username } = profileRest;
     const user = await this.usersService.findOne(provider, id);
@@ -32,13 +32,18 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
       return done(null, user);
     }
 
-    const { nickname, profileImage, thumbnailImage } = properties;
+    const { nickname, profileImage, thumbnailImage } = _.mapKeys(
+      properties,
+      (v, k) => {
+        return _.camelCase(k);
+      },
+    );
     const userData: UserDto = {
       // profile
       provider,
       id,
       username,
-      email: undefined,
+      email,
       // properties
       nickname,
       profileImage,

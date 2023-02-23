@@ -9,7 +9,7 @@
       <div class="row m-4 align-items-start">
         <div class="col">
           <!--https://developers.kakao.com/docs/latest/en/kakaologin/rest-api#request-code-request-->
-          <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id={{data.kakaoRestApiKey}}&redirect_uri={{data.kakaoRedirectUri}}">
+          <a href="https://kauth.kakao.com/oauth/authorize?scope=account_email&response_type=code&client_id={{data.kakaoRestApiKey}}&redirect_uri={{data.kakaoRedirectUri}}">
             <img src='/images/sns-kakao.png' width='240'>
           </a>
         </div>
