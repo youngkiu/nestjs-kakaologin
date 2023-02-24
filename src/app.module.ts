@@ -7,6 +7,7 @@ import { ChatModule } from './chat/chat.module';
 import { ConfigModule } from '@nestjs/config';
 import { EventsModule } from './events/events.module';
 import { LoggerMiddleware } from './logger/logger.middleware';
+import { MailerModule } from '@nestjs-modules/mailer';
 import { SentryInterceptor } from './sentry/sentry.interceptor';
 import { UsersModule } from './users/users.module';
 
@@ -19,6 +20,15 @@ import { UsersModule } from './users/users.module';
     UsersModule,
     ChatModule,
     EventsModule,
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.sendgrid.net',
+        auth: {
+          user: 'apikey',
+          pass: process.env.SENDGRID_API_KEY,
+        },
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [
