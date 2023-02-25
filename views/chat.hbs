@@ -1,75 +1,124 @@
-<!DOCTYPE html>
-<html>
+<html data-theme="pastel">
 <head>
-  <meta charset="utf-8">
   <title>Socket.io Chat</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.0/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script></head>
 <body>
-<div class="container">
-  <h3>Socket.io Chat</h3>
-  <form class="form-inline">
-    <div class="form-group">
-      <label for="msgForm">Message: </label>
-      <input type="text" class="form-control" id="msgForm">
+  <div class="navbar bg-base-100">
+    <a class="btn btn-ghost normal-case text-xl">Socket.io Chat</a>
+  </div>
+
+  <div class="flex p-2">
+    <div class="w-3/4 p-4">
+      <div class="columns-1">
+        <div id="chatLogs"></div>
+        <div class="divider divider-vertical"></div>
+        <div class="form-control">
+          <form class="flex items-stretch gap-4">
+            <label for="msgForm" class="flex items-center">Message: </label>
+            <input type="text" id="msgForm" class="border w-full p-2">
+            <button type="submit" class="btn">Send</button>
+          </form>
+        </div>
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary">Send</button>
-  </form>
-  <hr>
-  <div id="numOfUsers"></div>
-  <div id="chatLogs"></div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script type="text/javascript">
-  (function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"mixpanel"!==c&&(d+="."+c);a||(d+=" (stub)");return d};a.people.toString=function(){return a.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
-    for(h=0;h<i.length;h++)g(a,i[h]);var j="set set_once union unset remove delete".split(" ");a.get_group=function(){function b(c){d[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));a.push([e,call2])}}for(var d={},e=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<j.length;c++)b(j[c]);return d};b._i.push([e,f,c])};b.__SV=1.2;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?
-    MIXPANEL_CUSTOM_LIB_URL:"file:"===f.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
-</script>
-<script>
-  $(function(){
-    var socket = io();
+    <div class="divider divider-horizontal"></div>
+    <div class="w-1/4 pt-2 pr-4">
+      <div class="columns-1">
+        <div class="px-2">
+          <p class="text-xl">Users:</p>
+        </div>
+        <div class="divider divider-vertical"></div>
+        <div class="px-6">
+          <ul class="list-disc">
+            <div id="numOfUsers"></div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    fetch("/user/profile")
-      .then(r=>r.json())
-      .then(data => {
+  <footer class="footer items-center p-4 bg-neutral text-neutral-content">
+    <div class="items-center grid-flow-col">
+      <svg width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" class="fill-current"><path d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path></svg>
+      <p>Copyright © 2023 - All right reserved</p>
+    </div>
+    <div class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+      <a href="https://velog.io/@youngkiu" aria-label="Homepage" class="footer-octicon" title="Velog">
+        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 192 192" xml:space="preserve" width="24"><path id="Website" fill="#D1CECC" fill-rule="evenodd" clip-rule="evenodd" d="M24 0H168C181.255 0 192 10.7451 192 24V168C192 181.255 181.255 192 168 192H24C10.7451 192 0 181.255 0 168V24C0 10.7451 10.7451 0 24 0ZM49 57.9199V65.48H67L80.6799 142.52L98.5 141.26C116.02 119.06 127.84 102.44 133.96 91.3999C140.2 80.24 143.32 70.9399 143.32 63.5C143.32 59.0601 142 55.7 139.36 53.4199C136.84 51.1399 133.66 50 129.82 50C122.62 50 116.62 53.0601 111.82 59.1799C116.5 62.3 119.68 64.8799 121.36 66.9199C123.16 68.8401 124.06 71.4199 124.06 74.6599C124.06 80.0601 122.44 86.1799 119.2 93.02C116.08 99.8601 112.66 105.92 108.94 111.2C106.54 114.56 103.48 118.7 99.76 123.62L88.0601 57.2C87.1001 52.3999 84.1001 50 79.0601 50C76.78 50 72.3999 50.96 65.9199 52.8799C59.4399 54.6799 53.8 56.3601 49 57.9199Z"/></svg>
+      </a>
+      <a href="https://github.com/youngkiu/nestjs-kakaologin" aria-label="Homepage" class="footer-octicon" title="GitHub">
+        <svg aria-hidden="true" class="fill-current" width="24" height="24" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>
+      </a>
+    </div>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    (function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"mixpanel"!==c&&(d+="."+c);a||(d+=" (stub)");return d};a.people.toString=function(){return a.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
+      for(h=0;h<i.length;h++)g(a,i[h]);var j="set set_once union unset remove delete".split(" ");a.get_group=function(){function b(c){d[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));a.push([e,call2])}}for(var d={},e=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<j.length;c++)b(j[c]);return d};b._i.push([e,f,c])};b.__SV=1.2;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?
+      MIXPANEL_CUSTOM_LIB_URL:"file:"===f.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
+  </script>
+  <script>
+    $(function(){
+      let socket = io();
+      let myProfile = {};
+
+      fetch("/user/profile")
+        .then(r=>r.json())
+        .then(data => {
+          console.log(data);
+          myProfile = data;
+          socket.emit("login", data);
+
+          // Enabling the debug mode flag is useful during implementation,
+          // but it's recommended you remove it for production
+          mixpanel.init('{{data.mixpanelToken}}', {debug: true});
+          mixpanel.track('Chat login', data);
+        });
+
+      socket.on("onlineList", function(data) {
         console.log(data);
-        socket.emit("login", data);
-
-        // Enabling the debug mode flag is useful during implementation,
-        // but it's recommended you remove it for production
-        mixpanel.init('{{data.mixpanelToken}}', {debug: true});
-        mixpanel.track('Chat login', data);
+        const { id, provider } = myProfile;
+        const buildUserLi = (user) => {
+          const userLi = `<li>${user.username}</li>`;
+          return (user.id === id && user.provider === provider)
+            ? `<strong>${userLi}</strong>`
+            : userLi;
+        };
+        $("#numOfUsers").html(data.map((user) => buildUserLi(user)));
       });
 
-    socket.on("onlineList", function(data) {
-      console.log(data);
-      $("#numOfUsers").html("<strong>" + 'Users: ' + "</strong>" + data.map((user) => user.username));
-    });
+      socket.on("chat", function(data) {
+        console.log(data);
+        const { id, provider } = myProfile;
+        const chatStartEnd = (data.id === id && data.provider === provider) ? 'chat-end' : 'chat-start';
+        $("#chatLogs").append(
+          `<div class="chat ${chatStartEnd}"><div class="chat-header">${data.username}</div><div class="chat-bubble">${data.msg}</div></div>`
+        );
+      });
 
-    socket.on("chat", function(data) {
-      console.log(data);
-      $("#chatLogs").append("<div>" + data.msg + "</div>");
-    });
+      $("form").submit(function(e) {
+        e.preventDefault();
+        var $msgForm = $("#msgForm");
 
-    $("form").submit(function(e) {
-      e.preventDefault();
-      var $msgForm = $("#msgForm");
-
-      fetch("/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content: $msgForm.val(),
+        fetch("/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            content: $msgForm.val(),
+          })
         })
-      })
-        .then(data => {
-          $msgForm.val("");
-        });
+          .then(data => {
+            $msgForm.val("");
+          });
+      });
     });
-  });
-</script>
+  </script>
 </body>
 </html>

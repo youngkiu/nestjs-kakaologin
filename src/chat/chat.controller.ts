@@ -29,7 +29,10 @@ export class ChatController {
   @ApiOperation({ summary: 'JWT guarded' })
   @UseGuards(JwtAuthGuard)
   @Post()
-  postChat(@Body('content') content, @RequestUser() reqUser: JwtPayloadDto) {
-    return this.chatService.createChannelChats(content, reqUser);
+  async postChat(
+    @Body('content') content,
+    @RequestUser() reqUser: JwtPayloadDto,
+  ) {
+    return await this.chatService.createChannelChats(content, reqUser);
   }
 }
