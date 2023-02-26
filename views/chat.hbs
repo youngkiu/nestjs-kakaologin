@@ -83,12 +83,10 @@
       socket.on("onlineList", function(data) {
         console.log(data);
         const { id, provider } = myProfile;
-        const buildUserLi = (user) => {
-          const userLi = `<li>${user.username}</li>`;
-          return (user.id === id && user.provider === provider)
-            ? `<strong>${userLi}</strong>`
-            : userLi;
-        };
+        const buildUserLi = (user) =>
+          (user.id === id && user.provider === provider)
+            ? `<li><strong>${user.username}</strong><sup>*</sup></li>`
+            : `<li>${user.username}</li>`;
         $("#numOfUsers").html(data.map((user) => buildUserLi(user)));
       });
 
