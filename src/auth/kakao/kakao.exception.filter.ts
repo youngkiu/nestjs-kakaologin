@@ -21,10 +21,10 @@ export class KakaoExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const { statusCode, data } = exception;
-    const { msg, code } = JSON.parse(data);
-
-    this.logger.error({ statusCode, msg, code });
     Sentry.captureException(data);
+
+    const { msg, code } = JSON.parse(data);
+    this.logger.error({ statusCode, msg, code });
 
     // = throw new InternalServerErrorException();
     response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
