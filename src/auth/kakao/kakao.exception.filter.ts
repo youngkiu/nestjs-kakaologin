@@ -27,7 +27,7 @@ export class KakaoExceptionFilter implements ExceptionFilter {
       const { msg, code } = JSON.parse(data);
       this.logger.error({ statusCode, msg, code });
     } else {
-      this.logger.error({ statusCode, data });
+      this.logger.error(exception);
     }
 
     // = throw new InternalServerErrorException();

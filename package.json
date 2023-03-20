@@ -1,7 +1,7 @@
 {
   "name": "oauth-socket.io-starter",
   "private": true,
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Nest TypeScript starter repository",
   "license": "MIT",
   "keywords": [
@@ -42,6 +42,7 @@
     "@sendgrid/mail": "^7.7.0",
     "@sentry/node": "^7.38.0",
     "@sentry/tracing": "^7.38.0",
+    "axios": "^1.3.4",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
     "hbs": "^4.2.0",

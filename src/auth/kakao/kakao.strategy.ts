@@ -5,6 +5,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-kakao';
 import { UserDto } from '../../users/user.dto';
 import { UsersService } from '../../users/users.service';
+import axios from 'axios';
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy) {
@@ -24,7 +25,24 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
     const { _raw, _json, ...profileRest } = profile;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { connected_at, properties, kakao_account } = _json;
-    const { email } = kakao_account;
+
+    const email = await (async () => {
+      if (kakao_account.email) {
+        return kakao_account.email;
+      }
+
+      const response = await axios({
+        url: 'https://kapi.kakao.com/v2/user/me',
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        data: 'property_keys=["kakao_account.profile","kakao_account.name","kakao_account.email"]',
+      });
+      const { email } = response?.data?.kakao_account;
+      return email;
+    })();
 
     const { provider, id, username } = profileRest;
     const user = await this.usersService.findOne(provider, id);
