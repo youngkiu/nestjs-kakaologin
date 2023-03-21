@@ -32,13 +32,14 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
       }
 
       const response = await axios({
+        // https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#req-user-info
         url: 'https://kapi.kakao.com/v2/user/me',
         method: 'post',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Authorization: `Bearer ${accessToken}`,
         },
-        data: 'property_keys=["kakao_account.profile","kakao_account.name","kakao_account.email"]',
+        data: 'property_keys=["kakao_account.profile","kakao_account.email"]',
       });
       const { email } = response?.data?.kakao_account;
       return email;
