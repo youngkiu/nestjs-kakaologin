@@ -67,19 +67,6 @@
       let socket = io();
       let myProfile = {};
 
-      fetch("/user/profile")
-        .then(r=>r.json())
-        .then(data => {
-          console.log(data);
-          myProfile = data;
-          socket.emit("login", data);
-
-          // Enabling the debug mode flag is useful during implementation,
-          // but it's recommended you remove it for production
-          mixpanel.init('{{data.mixpanelToken}}', {debug: true});
-          mixpanel.track('Chat login', data);
-        });
-
       socket.on("onlineList", function(data) {
         console.log(data);
         const { id, provider } = myProfile;
@@ -93,11 +80,29 @@
       socket.on("chat", function(data) {
         console.log(data);
         const { id, provider } = myProfile;
-        const chatStartEnd = (data.id === id && data.provider === provider) ? 'chat-end' : 'chat-start';
+        const chatStartEnd = (data.id === id && data.provider === provider) ? "chat-end" : "chat-start";
         $("#chatLogs").append(
           `<div class="chat ${chatStartEnd}"><div class="chat-header">${data.username}</div><div class="chat-bubble">${data.msg}</div></div>`
         );
       });
+
+      fetch("/user/profile")
+        .then((r) => r.json())
+        .then((data) => {
+          console.log(data);
+
+          if (Object.keys(data).length === 0) {
+            document.location.href = "/";
+          }
+
+          myProfile = data;
+          socket.emit("login", data);
+
+          // Enabling the debug mode flag is useful during implementation,
+          // but it's recommended you remove it for production
+          mixpanel.init("{{data.mixpanelToken}}", {debug: true});
+          mixpanel.track("Chat login", data);
+        });
 
       $("form").submit(function(e) {
         e.preventDefault();

@@ -4,7 +4,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Controller, Get, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { JwtPayloadDto } from '../auth/jwt.payload.dto';
 import { RequestUser } from './users.decorator';
@@ -28,11 +28,11 @@ export class UserController {
   })
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  async getUserProfile(@RequestUser() reqUser: JwtPayloadDto, @Res() res) {
+  async getUserProfile(@RequestUser() reqUser: JwtPayloadDto) {
     const { provider, id } = reqUser;
     const userData: UserDto = await this.usersService.findOne(provider, id);
     if (!userData) {
-      return res.redirect('/');
+      return {};
     }
     const { username, thumbnailImage } = userData;
     return {
