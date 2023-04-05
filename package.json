@@ -1,7 +1,7 @@
 {
   "name": "oauth-socket.io-starter",
   "private": true,
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "Nest TypeScript starter repository",
   "license": "MIT",
   "keywords": [
