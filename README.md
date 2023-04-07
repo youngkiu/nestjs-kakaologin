@@ -76,6 +76,13 @@ KAKAO_CLIENT_SECRET=<Kakao Client secret code>
 GOOGLE_CLIENT_ID=<Google Client ID>
 GOOGLE_CLIENT_SECRET=<Google Client Secret>
 GOOGLE_REDIRECT_URI=<Google Redirect URI>
+
+APP_PORT=<App Port>
+MONGO_USER=<DB User>
+MONGO_PW=<DB Password>
+MONGO_DB=<DB Name>
+MONGO_HOST=<DB Host>
+MONGO_PORT=<DB Port>
 ```
 
 Connect http://localhost:3000
