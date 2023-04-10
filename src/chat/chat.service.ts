@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { EventsGateway } from '../events/events.gateway';
 import { JwtPayloadDto } from '../auth/jwt.payload.dto';
+import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 
 @Injectable()
@@ -10,6 +11,7 @@ export class ChatService {
   constructor(
     private readonly eventsGateway: EventsGateway,
     private readonly usersService: UserService,
+    private readonly prisma: PrismaService,
   ) {}
 
   async createChannelChats(content: string, reqUser: JwtPayloadDto) {
@@ -28,6 +30,12 @@ export class ChatService {
       username,
       thumbnailImage,
       msg: content,
+    });
+    await this.prisma.chat.create({
+      data: {
+        message: content,
+        senderId: user.id,
+      },
     });
   }
 }
