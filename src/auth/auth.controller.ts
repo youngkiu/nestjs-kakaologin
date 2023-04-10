@@ -5,10 +5,10 @@ import { ConfigService } from '@nestjs/config';
 import { GoogleAuthGuard } from './google/google.auth.guard';
 import { KakaoAuthGuard } from './kakao/kakao.auth.guard';
 import { KakaoExceptionFilter } from './kakao/kakao.exception.filter';
-import { RequestUser } from '../users/users.decorator';
+import { RequestUser } from '../user/user.decorator';
 import { Response } from 'express';
 import { SendgridService } from '../sendgrid/sendgrid.service';
-import { UserDto } from '../users/user.dto';
+import { UserDto } from '../user/user.dto';
 
 @ApiTags('AUTH')
 @Controller('auth')

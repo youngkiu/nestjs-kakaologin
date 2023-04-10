@@ -3,15 +3,14 @@ import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-kakao';
-import { UserDto } from '../../users/user.dto';
-import { UsersService } from '../../users/users.service';
+import { UserService } from '../../user/user.service';
 import axios from 'axios';
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly configService: ConfigService,
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
   ) {
     super({
       clientID: configService.get<string>('KAKAO_REST_API_KEY'),
@@ -46,25 +45,31 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
     })();
 
     const { provider, id, username } = profileRest;
-    const user = await this.usersService.findOne(provider, id);
+    const providerId = id.toString();
+    const user = await this.usersService.findOne({
+      provider_providerId: {
+        provider,
+        providerId,
+      },
+    });
     if (user) {
       return done(null, user);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { nickname, profileImage, thumbnailImage } = _.mapKeys(
       properties,
       (v, k) => {
         return _.camelCase(k);
       },
     );
-    const userData: UserDto = {
+    const userData = {
       // profile
       provider,
-      id,
+      providerId,
       username,
       email,
       // properties
-      nickname,
       profileImage,
       thumbnailImage,
       // token

@@ -78,11 +78,7 @@ GOOGLE_CLIENT_SECRET=<Google Client Secret>
 GOOGLE_REDIRECT_URI=<Google Redirect URI>
 
 APP_PORT=<App Port>
-MONGO_USER=<DB User>
-MONGO_PW=<DB Password>
-MONGO_DB=<DB Name>
-MONGO_HOST=<DB Host>
-MONGO_PORT=<DB Port>
+DATABASE_URL="mongodb://${MONGO_USER}:${MONGO_PW}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}?authSource=admin"
 ```
 
 Connect http://localhost:3000

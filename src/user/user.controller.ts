@@ -7,15 +7,14 @@ import {
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { JwtPayloadDto } from '../auth/jwt.payload.dto';
-import { RequestUser } from './users.decorator';
-import { UserDto } from './user.dto';
-import { UsersService } from './users.service';
+import { RequestUser } from './user.decorator';
+import { UserService } from './user.service';
 
 @ApiTags('USER')
 @ApiCookieAuth()
 @Controller('user')
 export class UserController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UserService) {}
 
   @ApiOperation({ summary: 'JWT guarded' })
   @ApiResponse({
@@ -29,15 +28,17 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   async getUserProfile(@RequestUser() reqUser: JwtPayloadDto) {
-    const { provider, id } = reqUser;
-    const userData: UserDto = await this.usersService.findOne(provider, id);
-    if (!userData) {
-      return {};
-    }
-    const { username, thumbnailImage } = userData;
+    const { provider, providerId } = reqUser;
+    const user = await this.usersService.findOne({
+      provider_providerId: {
+        provider,
+        providerId,
+      },
+    });
+    const { username, thumbnailImage } = user;
     return {
       provider,
-      id,
+      providerId,
       username,
       thumbnailImage,
     };

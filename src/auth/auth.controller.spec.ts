@@ -3,8 +3,9 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaService } from '../prisma/prisma.service';
 import { SendgridService } from '../sendgrid/sendgrid.service';
-import { UsersService } from '../users/users.service';
+import { UserService } from '../user/user.service';
 
 describe('KakaoAuthController', () => {
   let controller: AuthController;
@@ -14,10 +15,11 @@ describe('KakaoAuthController', () => {
       controllers: [AuthController],
       providers: [
         AuthService,
-        UsersService,
+        UserService,
         ConfigService,
         JwtService,
         SendgridService,
+        PrismaService,
       ],
     }).compile();
 

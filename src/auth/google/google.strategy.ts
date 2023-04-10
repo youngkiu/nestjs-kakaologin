@@ -2,14 +2,13 @@ import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-google-oauth20';
-import { UserDto } from '../../users/user.dto';
-import { UsersService } from '../../users/users.service';
+import { UserService } from '../../user/user.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly configService: ConfigService,
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
   ) {
     super({
       clientID: configService.get<string>('GOOGLE_CLIENT_ID'),
@@ -20,7 +19,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
 
   async validate(accessToken, refreshToken, profile, cb) {
     const {
-      id,
+      id: providerId,
       displayName,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       name: { familyName, givenName },
@@ -29,7 +28,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       provider,
     } = profile;
 
-    const user = await this.usersService.findOne(provider, id);
+    const user = await this.usersService.findOne({
+      provider_providerId: {
+        provider,
+        providerId,
+      },
+    });
     if (user) {
       return cb(null, user);
     }
@@ -37,9 +41,9 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [{ value: email, verified }] = emails;
     const [{ value: photo }] = photos;
-    const userData: UserDto = {
+    const userData = {
       provider,
-      id,
+      providerId,
       username: displayName,
       email: email,
       nickname: undefined,

@@ -4,7 +4,7 @@ import { ChatService } from './chat.service';
 import { ConfigService } from '@nestjs/config';
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { JwtPayloadDto } from '../auth/jwt.payload.dto';
-import { RequestUser } from '../users/users.decorator';
+import { RequestUser } from '../user/user.decorator';
 
 @ApiTags('CHAT')
 @ApiCookieAuth()

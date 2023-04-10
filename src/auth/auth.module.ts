@@ -10,8 +10,9 @@ import { KakaoAuthGuard } from './kakao/kakao.auth.guard';
 import { KakaoStrategy } from './kakao/kakao.strategy';
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
+import { PrismaService } from '../prisma/prisma.service';
 import { SendgridService } from '../sendgrid/sendgrid.service';
-import { UsersService } from '../users/users.service';
+import { UserService } from '../user/user.service';
 
 @Module({
   imports: [
@@ -32,9 +33,10 @@ import { UsersService } from '../users/users.service';
     GoogleAuthGuard,
     JwtStrategy,
     JwtAuthGuard,
-    UsersService,
+    UserService,
     AuthService,
     SendgridService,
+    PrismaService,
   ],
   exports: [JwtAuthGuard],
 })

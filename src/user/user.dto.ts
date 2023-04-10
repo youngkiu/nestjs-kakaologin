@@ -1,10 +1,4 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  IsUrl,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, IsUrl } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UserDto {
@@ -17,14 +11,14 @@ export class UserDto {
   })
   public provider: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   @ApiProperty({
     example: '1234',
     description: 'User id of OAuth provider',
     required: true,
   })
-  public id: number;
+  public providerId: string;
 
   @IsString()
   @IsNotEmpty()
