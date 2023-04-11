@@ -1,0 +1,9 @@
+.DS_Store
+Dockerfile
+docker-compose.yml
+.idea/
+.vscode/
+dist/
+mongodb/
+node_modules/
+.env
