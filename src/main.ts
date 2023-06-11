@@ -8,6 +8,7 @@ import * as Sentry from '@sentry/node';
 import * as cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
+import { MyLoggerService } from './logger/logger.service';
 
 async function bootstrap() {
   Sentry.init({
@@ -17,6 +18,8 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   const configService = app.get(ConfigService);
+
+  app.useLogger(app.get(MyLoggerService));
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));

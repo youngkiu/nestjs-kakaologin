@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { LoggerModule } from 'nestjs-pino';
+import { LoggerModule as HTTPLoggerModule } from 'nestjs-pino';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { EventsModule } from './events/events.module';
+import { LoggerModule } from './logger/logger.module';
 import { SentryInterceptor } from './sentry/sentry.interceptor';
 import { UserModule } from './user/user.module';
 
@@ -20,7 +21,7 @@ import { UserModule } from './user/user.module';
     UserModule,
     ChatModule,
     EventsModule,
-    LoggerModule.forRoot({
+    HTTPLoggerModule.forRoot({
       pinoHttp: {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         customProps: (req, res) => ({
@@ -28,6 +29,7 @@ import { UserModule } from './user/user.module';
         }),
       },
     }),
+    LoggerModule,
   ],
   controllers: [AppController],
   providers: [

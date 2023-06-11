@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import axios from 'axios';
@@ -9,6 +9,8 @@ import { UserService } from '../../user/user.service';
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy) {
+  private readonly logger = new Logger(KakaoStrategy.name);
+
   constructor(
     private readonly configService: ConfigService,
     private readonly usersService: UserService,
@@ -49,6 +51,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
       return email;
     })();
 
+    this.logger.verbose(JSON.stringify({ ...profileRest }));
     const { provider, id, username } = profileRest;
     const providerId = id.toString();
     const user = await this.usersService.findOne({

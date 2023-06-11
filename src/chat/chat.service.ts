@@ -17,7 +17,7 @@ export class ChatService {
 
   async createChannelChats(content: string, reqUser: JwtPayloadDto) {
     const { provider, providerId } = reqUser;
-    this.logger.debug(`msg: ${content}, user: ${provider}-${providerId}`);
+    this.logger.verbose(`msg: ${content}, user: ${provider}-${providerId}`);
     const user = await this.usersService.findOne({
       provider_providerId: {
         provider,
