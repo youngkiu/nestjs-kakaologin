@@ -1,10 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ChatController } from './chat.controller';
-import { ChatService } from './chat.service';
 import { ConfigService } from '@nestjs/config';
+import { Test, TestingModule } from '@nestjs/testing';
+
 import { EventsGateway } from '../events/events.gateway';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
+
+import { ChatController } from './chat.controller';
+import { ChatService } from './chat.service';
 
 describe('ChatController', () => {
   let controller: ChatController;

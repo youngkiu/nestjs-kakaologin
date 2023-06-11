@@ -1,4 +1,3 @@
-import * as Sentry from '@sentry/node';
 import {
   ArgumentsHost,
   Catch,
@@ -6,6 +5,7 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
+import * as Sentry from '@sentry/node';
 import { Response } from 'express';
 
 type ExceptionObject = {

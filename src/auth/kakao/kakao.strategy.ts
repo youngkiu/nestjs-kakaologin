@@ -1,10 +1,11 @@
-import * as _ from 'lodash';
-import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy } from 'passport-kakao';
-import { UserService } from '../../user/user.service';
 import axios from 'axios';
+import * as _ from 'lodash';
+import { Strategy } from 'passport-kakao';
+
+import { UserService } from '../../user/user.service';
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy) {
@@ -40,7 +41,11 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
         },
         data: 'property_keys=["kakao_account.profile","kakao_account.email"]',
       });
-      const { email } = response?.data?.kakao_account;
+      const {
+        data: {
+          kakao_account: { email },
+        },
+      } = response;
       return email;
     })();
 

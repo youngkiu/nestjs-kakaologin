@@ -1,14 +1,16 @@
-import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { Controller, Get, Res, UseFilters, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
+
+import { SendgridService } from '../sendgrid/sendgrid.service';
+import { RequestUser } from '../user/user.decorator';
+import { UserDto } from '../user/user.dto';
+
+import { AuthService } from './auth.service';
 import { GoogleAuthGuard } from './google/google.auth.guard';
 import { KakaoAuthGuard } from './kakao/kakao.auth.guard';
 import { KakaoExceptionFilter } from './kakao/kakao.exception.filter';
-import { RequestUser } from '../user/user.decorator';
-import { Response } from 'express';
-import { SendgridService } from '../sendgrid/sendgrid.service';
-import { UserDto } from '../user/user.dto';
 
 @ApiTags('AUTH')
 @Controller('auth')

@@ -1,12 +1,14 @@
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import {
   ApiCookieAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Controller, Get, UseGuards } from '@nestjs/common';
+
 import { JwtAuthGuard } from '../auth/jwt.auth.guard';
 import { JwtPayloadDto } from '../auth/jwt.payload.dto';
+
 import { RequestUser } from './user.decorator';
 import { UserService } from './user.service';
 

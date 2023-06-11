@@ -5,10 +5,13 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['@typescript-eslint', 'import'],
   extends: [
+    'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
     'plugin:prettier/recommended',
+    'plugin:import/recommended'
   ],
   root: true,
   env: {
@@ -17,17 +20,32 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
-    '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    // https://eslint.org/docs/latest/rules/sort-imports
-    "sort-imports": ["error", {
-      "ignoreCase": false,
-      "ignoreDeclarationSort": false,
-      "ignoreMemberSort": false,
-      "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
-      "allowSeparatedGroups": false
-    }],
+    'import/order': [
+      'error',
+      {
+        'groups': [
+          'builtin',
+          'external',
+          'internal',
+          'parent',
+          'sibling',
+          'index',
+          'unknown'
+        ],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      }
+    ]
   },
+  settings: {
+    'import/resolver': {
+      node: {},
+      typescript: {
+        directory: './src',
+      },
+    },
+  }
 };

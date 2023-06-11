@@ -1,5 +1,6 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
+import { Test, TestingModule } from '@nestjs/testing';
+
 import { SendgridService } from './sendgrid.service';
 
 describe('SendgridService', () => {

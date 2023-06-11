@@ -1,11 +1,13 @@
+import { join } from 'path';
+
+import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as Sentry from '@sentry/node';
 import * as cookieParser from 'cookie-parser';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+
 import { AppModule } from './app.module';
-import { ConfigService } from '@nestjs/config';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { NestFactory } from '@nestjs/core';
-import { join } from 'path';
 
 async function bootstrap() {
   Sentry.init({
