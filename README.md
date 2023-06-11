@@ -21,6 +21,11 @@ GOOGLE_REDIRECT_URI=<Google Redirect URI>
 
 APP_PORT=<App Port>
 DATABASE_URL="mongodb://${MONGO_USER}:${MONGO_PW}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}?authSource=admin"
+
+SLACK_WEBHOOK_URL=<Slack Webhook URL>
+SLACK_CHANNEL=<Slack Channel>
+SLACK_USERNAME=<Slack Username>
+SLACK_EMOJI=<Slack Emoji>
 ```
 
 Connect http://localhost:3000

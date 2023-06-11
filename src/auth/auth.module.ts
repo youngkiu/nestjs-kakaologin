@@ -11,8 +11,8 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { GoogleAuthGuard } from './google/google.auth.guard';
 import { GoogleStrategy } from './google/google.strategy';
-import { JwtAuthGuard } from './jwt.auth.guard';
-import { JwtStrategy } from './jwt.strategy';
+import { JwtAuthGuard } from './jwt/jwt.auth.guard';
+import { JwtStrategy } from './jwt/jwt.strategy';
 import { KakaoAuthGuard } from './kakao/kakao.auth.guard';
 import { KakaoStrategy } from './kakao/kakao.strategy';
 

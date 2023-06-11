@@ -2,8 +2,8 @@ import { Body, Controller, Get, Post, Render, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { JwtAuthGuard } from '../auth/jwt.auth.guard';
-import { JwtPayloadDto } from '../auth/jwt.payload.dto';
+import { JwtAuthGuard } from '../auth/jwt/jwt.auth.guard';
+import { JwtPayloadDto } from '../auth/jwt/jwt.payload.dto';
 import { RequestUser } from '../user/user.decorator';
 
 import { ChatService } from './chat.service';

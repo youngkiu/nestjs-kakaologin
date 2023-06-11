@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import { JwtPayloadDto } from '../auth/jwt.payload.dto';
+import { JwtPayloadDto } from '../auth/jwt/jwt.payload.dto';
 import { EventsGateway } from '../events/events.gateway';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
