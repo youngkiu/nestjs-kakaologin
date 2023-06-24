@@ -37,6 +37,7 @@ export class AppController {
           'GOOGLE_REDIRECT_URI',
         ),
         mixpanelToken: this.configService.get<string>('MIXPANEL_TOKEN'),
+        amplitudeApiKey: this.configService.get<string>('AMPLITUDE_API_KEY'),
       },
     };
   }

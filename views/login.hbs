@@ -10,13 +10,13 @@
       <div class="m-8">
         <!--https://developers.kakao.com/docs/latest/en/kakaologin/rest-api#request-code-request-->
         <a href="https://kauth.kakao.com/oauth/authorize?scope=account_email&response_type=code&client_id={{data.kakaoRestApiKey}}&redirect_uri={{data.kakaoRedirectUri}}">
-        <img class="w-48" src='/images/sns-kakao.png'>
+        <img class="w-48" src="/images/sns-kakao.png">
         </a>
       </div>
       <div class="m-8">
         <!--https://developers.google.com/identity/protocols/oauth2/web-server#sample-oauth-2.0-server-response-->
         <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/userinfo.profile%20https%3A//www.googleapis.com/auth/userinfo.email&access_type=offline&include_granted_scopes=true&response_type=code&redirect_uri={{data.googleRedirectUri}}&client_id={{data.googleClientId}}">
-        <img class="w-48" src='/images/sns-google.png'>
+        <img class="w-48" src="/images/sns-google.png">
         </a>
         (Available in Web Browser)
       </div>
@@ -29,9 +29,15 @@
 
     // Enabling the debug mode flag is useful during implementation,
     // but it's recommended you remove it for production
-    mixpanel.init('{{data.mixpanelToken}}', {debug: true});
-    mixpanel.track('Sign up');
+    mixpanel.init("{{data.mixpanelToken}}", {debug: true});
+    mixpanel.track("Sign up");
   </script>
-  <script src='js/scripts.js'></script>
+  <script type="text/javascript">
+    !function(){"use strict";!function(e,t){var n=e.amplitude||{_q:[],_iq:{}};if(n.invoked)e.console&&console.error&&console.error("Amplitude snippet has been loaded.");else{var r=function(e,t){e.prototype[t]=function(){return this._q.push({name:t,args:Array.prototype.slice.call(arguments,0)}),this}},s=function(e,t,n){return function(r){e._q.push({name:t,args:Array.prototype.slice.call(n,0),resolve:r})}},o=function(e,t,n){e[t]=function(){if(n)return{promise:new Promise(s(e,t,Array.prototype.slice.call(arguments)))}}},i=function(e){for(var t=0;t<m.length;t++)o(e,m[t],!1);for(var n=0;n<g.length;n++)o(e,g[n],!0)};n.invoked=!0;var u=t.createElement("script");u.type="text/javascript",u.integrity="sha384-x0ik2D45ZDEEEpYpEuDpmj05fY91P7EOZkgdKmq4dKL/ZAVcufJ+nULFtGn0HIZE",u.crossOrigin="anonymous",u.async=!0,u.src="https://cdn.amplitude.com/libs/analytics-browser-2.0.0-min.js.gz",u.onload=function(){e.amplitude.runQueuedFunctions||console.log("[Amplitude] Error: could not load SDK")};var a=t.getElementsByTagName("script")[0];a.parentNode.insertBefore(u,a);for(var c=function(){return this._q=[],this},p=["add","append","clearAll","prepend","set","setOnce","unset","preInsert","postInsert","remove","getUserProperties"],l=0;l<p.length;l++)r(c,p[l]);n.Identify=c;for(var d=function(){return this._q=[],this},f=["getEventProperties","setProductId","setQuantity","setPrice","setRevenue","setRevenueType","setEventProperties"],v=0;v<f.length;v++)r(d,f[v]);n.Revenue=d;var m=["getDeviceId","setDeviceId","getSessionId","setSessionId","getUserId","setUserId","setOptOut","setTransport","reset","extendSession"],g=["init","add","remove","track","logEvent","identify","groupIdentify","setGroup","revenue","flush"];i(n),n.createInstance=function(e){return n._iq[e]={_q:[]},i(n._iq[e]),n._iq[e]},e.amplitude=n}}(window,document)}();
+
+    amplitude.init("15866d48ec33d53a6c041384447faa95");
+    amplitude.track("Sign Up");
+  </script>
+  <script src="js/scripts.js"></script>
   </body>
 </html>

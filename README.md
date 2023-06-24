@@ -4,6 +4,7 @@
 
 ```bash
 MIXPANEL_TOKEN=<Mixpanel Token>
+AMPLITUDE_API_KEY=<Amplitude API Key>
 SENTRY_DSN=<Sentry DSN>
 SENDGRID_API_KEY=<Sendgrid API Key>
 SENDGRID_EMAIL_ADDRESS=<Sendgrid Email Address>
