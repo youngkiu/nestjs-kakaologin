@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-google-oauth20';
@@ -7,6 +7,8 @@ import { UserService } from '../../user/user.service';
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy) {
+  private readonly logger = new Logger(GoogleStrategy.name);
+
   constructor(
     private readonly configService: ConfigService,
     private readonly usersService: UserService,
@@ -29,6 +31,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy) {
       provider,
     } = profile;
 
+    this.logger.verbose(JSON.stringify({ ...profile }));
     const user = await this.usersService.findOne({
       provider_providerId: {
         provider,
