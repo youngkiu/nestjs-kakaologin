@@ -3,7 +3,6 @@ import { ConfigService } from '@nestjs/config';
 import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
-import { SendgridService } from '../sendgrid/sendgrid.service';
 import { RequestUser } from '../user/user.decorator';
 import { UserDto } from '../user/user.dto';
 
@@ -18,7 +17,6 @@ export class AuthController {
   constructor(
     private readonly configService: ConfigService,
     private readonly authService: AuthService,
-    private readonly sendgridService: SendgridService,
   ) {}
 
   @ApiExcludeEndpoint()
@@ -26,9 +24,8 @@ export class AuthController {
   @UseGuards(KakaoAuthGuard)
   @UseFilters(new KakaoExceptionFilter())
   async kakaoCallback(@RequestUser() userData: UserDto, @Res() res: Response) {
-    await this.sendgridService.sendLogin(userData.email);
-
     const { access_token } = await this.authService.login(userData);
+
     res.cookie(
       this.configService.get<string>('AUTH_COOKIE_NAME'),
       access_token,
@@ -41,9 +38,8 @@ export class AuthController {
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
   async googleCallback(@RequestUser() userData: UserDto, @Res() res: Response) {
-    await this.sendgridService.sendLogin(userData.email);
-
     const { access_token } = await this.authService.login(userData);
+
     res.cookie(
       this.configService.get<string>('AUTH_COOKIE_NAME'),
       access_token,
