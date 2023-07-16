@@ -1,7 +1,7 @@
+import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import axios from 'axios';
 import * as _ from 'lodash';
 import { Strategy } from 'passport-kakao';
 
@@ -13,6 +13,7 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
 
   constructor(
     private readonly configService: ConfigService,
+    private readonly httpService: HttpService,
     private readonly usersService: UserService,
   ) {
     super({
@@ -33,16 +34,17 @@ export class KakaoStrategy extends PassportStrategy(Strategy) {
         return kakao_account.email;
       }
 
-      const response = await axios({
+      const response = await this.httpService.axiosRef.post(
         // https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api#req-user-info
-        url: 'https://kapi.kakao.com/v2/user/me',
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${accessToken}`,
+        'https://kapi.kakao.com/v2/user/me',
+        'property_keys=["kakao_account.profile","kakao_account.email"]',
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Bearer ${accessToken}`,
+          },
         },
-        data: 'property_keys=["kakao_account.profile","kakao_account.email"]',
-      });
+      );
       const {
         data: {
           kakao_account: { email },
