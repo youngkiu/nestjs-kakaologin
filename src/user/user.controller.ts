@@ -6,10 +6,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { CallbackUserData } from '../auth/decorator/callback_user_data.decorator';
+import { JwtPayloadDto } from '../auth/dto/jwt.payload.dto';
 import { JwtAuthGuard } from '../auth/jwt/jwt.auth.guard';
-import { JwtPayloadDto } from '../auth/jwt/jwt.payload.dto';
 
-import { RequestUser } from './user.decorator';
 import { UserService } from './user.service';
 
 @ApiTags('USER')
@@ -29,7 +29,7 @@ export class UserController {
   })
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  async getUserProfile(@RequestUser() reqUser: JwtPayloadDto) {
+  async getUserProfile(@CallbackUserData() reqUser: JwtPayloadDto) {
     const { provider, providerId } = reqUser;
     const user = await this.usersService.findOne({
       provider_providerId: {

@@ -3,10 +3,9 @@ import { ConfigService } from '@nestjs/config';
 import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
-import { RequestUser } from '../user/user.decorator';
-import { UserDto } from '../user/user.dto';
-
 import { AuthService } from './auth.service';
+import { CallbackUserData } from './decorator/callback_user_data.decorator';
+import { CallbackUserDataDto } from './dto/callback_user_data.dto';
 import { GoogleAuthGuard } from './google/google.auth.guard';
 import { KakaoAuthGuard } from './kakao/kakao.auth.guard';
 import { KakaoExceptionFilter } from './kakao/kakao.exception.filter';
@@ -23,7 +22,10 @@ export class AuthController {
   @Get('kakao/callback')
   @UseGuards(KakaoAuthGuard)
   @UseFilters(new KakaoExceptionFilter())
-  async kakaoCallback(@RequestUser() userData: UserDto, @Res() res: Response) {
+  async kakaoCallback(
+    @CallbackUserData() userData: CallbackUserDataDto,
+    @Res() res: Response,
+  ) {
     const { access_token } = await this.authService.login(userData);
 
     res.cookie(
@@ -37,7 +39,10 @@ export class AuthController {
   @ApiExcludeEndpoint()
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
-  async googleCallback(@RequestUser() userData: UserDto, @Res() res: Response) {
+  async googleCallback(
+    @CallbackUserData() userData: CallbackUserDataDto,
+    @Res() res: Response,
+  ) {
     const { access_token } = await this.authService.login(userData);
 
     res.cookie(

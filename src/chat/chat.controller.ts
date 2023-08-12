@@ -2,9 +2,9 @@ import { Body, Controller, Get, Post, Render, UseGuards } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ApiCookieAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+import { CallbackUserData } from '../auth/decorator/callback_user_data.decorator';
+import { JwtPayloadDto } from '../auth/dto/jwt.payload.dto';
 import { JwtAuthGuard } from '../auth/jwt/jwt.auth.guard';
-import { JwtPayloadDto } from '../auth/jwt/jwt.payload.dto';
-import { RequestUser } from '../user/user.decorator';
 
 import { ChatService } from './chat.service';
 
@@ -34,7 +34,7 @@ export class ChatController {
   @Post()
   async postChat(
     @Body('content') content,
-    @RequestUser() reqUser: JwtPayloadDto,
+    @CallbackUserData() reqUser: JwtPayloadDto,
   ) {
     return await this.chatService.createChannelChats(content, reqUser);
   }

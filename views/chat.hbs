@@ -106,7 +106,7 @@
           mixpanel.init("{{data.mixpanelToken}}", {debug: true});
           mixpanel.track("Chat login", data);
 
-          amplitude.init("15866d48ec33d53a6c041384447faa95");
+          amplitude.init("{{data.amplitudeApiKey}}");
           amplitude.track("Chat login");
         });
 
