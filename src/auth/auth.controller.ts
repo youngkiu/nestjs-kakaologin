@@ -21,7 +21,7 @@ export class AuthController {
   @ApiExcludeEndpoint()
   @Get('kakao/callback')
   @UseGuards(KakaoAuthGuard)
-  @UseFilters(new KakaoExceptionFilter())
+  @UseFilters(KakaoExceptionFilter)
   async kakaoCallback(
     @CallbackUserData() userData: CallbackUserDataDto,
     @Res() res: Response,

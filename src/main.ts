@@ -9,6 +9,7 @@ import * as Sentry from '@sentry/node';
 import * as cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
+import { AxiosHttpExceptionFilter } from './axios.http-exception.filter';
 import { MyLoggerService } from './logger/logger.service';
 
 async function bootstrap() {
@@ -22,6 +23,7 @@ async function bootstrap() {
 
   app.useLogger(app.get(MyLoggerService));
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalFilters(new AxiosHttpExceptionFilter());
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
