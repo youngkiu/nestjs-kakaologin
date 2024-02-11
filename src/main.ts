@@ -17,7 +17,9 @@ async function bootstrap() {
     dsn: process.env.SENTRY_DSN,
   });
 
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    bufferLogs: true,
+  });
 
   const configService = app.get(ConfigService);
 

@@ -11,6 +11,7 @@ export class MyLoggerService extends ConsoleLogger {
   ) {
     super();
   }
+
   debug(message: any, ...optionalParams: [...any, string?]) {
     super.debug(`${message}...`, ...optionalParams);
   }
