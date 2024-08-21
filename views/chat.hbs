@@ -4,39 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.0/dist/full.css" rel="stylesheet" type="text/css" />
-  <script src="https://cdn.tailwindcss.com"></script></head>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+    }
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-container {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    #chatLogs {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+    .input-area {
+      padding: 1rem;
+      background-color: #f0f0f0;
+    }
+    .footer {
+      flex-shrink: 0;
+    }
+  </style>
+</head>
 <body>
   <div class="navbar bg-base-100">
     <a class="btn btn-ghost normal-case text-xl">Socket.io Chat</a>
   </div>
 
-  <div class="flex p-2">
-    <div class="w-3/4 p-4">
-      <div class="columns-1">
+  <div class="content">
+    <div class="chat-container">
+      <div class="w-3/4 flex flex-col">
         <div id="chatLogs"></div>
-        <div class="divider divider-vertical"></div>
-        <div class="form-control">
-          <form class="flex items-stretch gap-4">
-            <label for="msgForm" class="flex items-center">Message: </label>
-            <input type="text" id="msgForm" class="border w-full p-2">
-            <button type="submit" class="btn">Send</button>
-          </form>
+      </div>
+      <div class="divider divider-horizontal"></div>
+      <div class="w-1/4 pt-2 pr-4 overflow-y-auto">
+        <div class="columns-1">
+          <div class="px-2">
+            <p class="text-xl">Users:</p>
+          </div>
+          <div class="divider divider-vertical"></div>
+          <div class="px-6">
+            <ul class="list-disc">
+              <div id="numOfUsers"></div>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    <div class="divider divider-horizontal"></div>
-    <div class="w-1/4 pt-2 pr-4">
-      <div class="columns-1">
-        <div class="px-2">
-          <p class="text-xl">Users:</p>
-        </div>
-        <div class="divider divider-vertical"></div>
-        <div class="px-6">
-          <ul class="list-disc">
-            <div id="numOfUsers"></div>
-          </ul>
-        </div>
-      </div>
+    <div class="input-area">
+      <form class="flex items-stretch gap-4">
+        <label for="msgForm" class="flex items-center">Message: </label>
+        <input type="text" id="msgForm" class="border w-full p-2">
+        <button type="submit" class="btn">Send</button>
+      </form>
     </div>
   </div>
 
@@ -87,6 +118,8 @@
         $("#chatLogs").append(
           `<div class="chat ${chatStartEnd}"><div class="chat-header">${data.username}</div><div class="chat-bubble">${data.msg}</div></div>`
         );
+        // Scroll to the bottom of the chat logs
+        $("#chatLogs").scrollTop($("#chatLogs")[0].scrollHeight);
       });
 
       fetch("/user/profile")
