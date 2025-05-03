@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { EventsModule } from './events/events.module';
 import { LoggerModule } from './logger/logger.module';
+import { PrismaModule } from './prisma/prisma.module';
 import { SentryInterceptor } from './sentry/sentry.interceptor';
 import { UserModule } from './user/user.module';
 
@@ -17,6 +18,7 @@ import { UserModule } from './user/user.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    PrismaModule,
     AuthModule,
     UserModule,
     ChatModule,
@@ -35,7 +37,7 @@ import { UserModule } from './user/user.module';
   providers: [
     {
       provide: APP_INTERCEPTOR,
-      useValue: new SentryInterceptor(),
+      useFactory: () => new SentryInterceptor(),
     },
     AppService,
   ],
