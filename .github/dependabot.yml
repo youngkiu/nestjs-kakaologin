@@ -3,9 +3,25 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Seoul"
     reviewers:
       - "youngkiu"
     assignees:
       - "youngkiu"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
     open-pull-requests-limit: 5
+    # 그룹핑 설정 (관련 패키지들을 하나의 PR로)
+    groups:
+      nestjs:
+        patterns:
+          - "@nestjs/*"
+      testing:
+        patterns:
+          - "jest*"
+          - "@types/jest"
+          - "supertest"
