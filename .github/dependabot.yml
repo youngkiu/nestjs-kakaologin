@@ -1,0 +1,51 @@
+version: 2
+updates:
+  # npm 의존성 업데이트
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Seoul"
+    # PR 생성 시 자동으로 리뷰어 할당 (CodeRabbit이 자동으로 트리거됨)
+    reviewers:
+      - "youngkiu"  # 본인 GitHub 계정명으로 변경
+    assignees:
+      - "youngkiu"  # 본인 GitHub 계정명으로 변경
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+    # 업데이트할 의존성 종류
+    allow:
+      - dependency-type: "direct"
+      - dependency-type: "indirect"
+    # 메이저 버전 업데이트도 포함 (주의: breaking change 가능)
+    ignore:
+    # 특정 패키지 업데이트 제외하고 싶다면 여기에 추가
+    # - dependency-name: "some-package"
+    #   versions: [">=2.0.0"]
+    open-pull-requests-limit: 5
+    # PR 제목과 설명 커스터마이징
+    pull-request-branch-name:
+      separator: "/"
+    # 자동 병합 활성화 (선택사항)
+    enable-beta-ecosystems: true
+
+  # GitHub Actions 워크플로우 업데이트
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Seoul"
+    reviewers:
+      - "youngkiu"
+    assignees:
+      - "youngkiu"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    open-pull-requests-limit: 2
