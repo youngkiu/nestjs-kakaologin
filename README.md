@@ -6,8 +6,8 @@
 MIXPANEL_TOKEN=<Mixpanel Token>
 AMPLITUDE_API_KEY=<Amplitude API Key>
 SENTRY_DSN=<Sentry DSN>
-SENDGRID_API_KEY=<Sendgrid API Key>
-SENDGRID_EMAIL_ADDRESS=<Sendgrid Email Address>
+GMAIL_USER=<yourname@gmail.com>
+GMAIL_APP_PASSWORD=<생성된 16자리 앱 비밀번호>
 
 JWT_SECRET=<crypto.randomBytes(16).toString('hex')> or https://randomkeygen.com/, https://keygen.io/
 AUTH_COOKIE_NAME=access_token

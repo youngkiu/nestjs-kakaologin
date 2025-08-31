@@ -12,7 +12,7 @@
     "token",
     "sentry",
     "mixpanel",
-    "sendgrid"
+    "gmail smtp"
   ],
   "author": "YoungKi Lyu <youngkiu@gmail.com>",
   "scripts": {
