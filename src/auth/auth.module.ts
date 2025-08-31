@@ -4,8 +4,8 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
+import { GmailSmtpService } from '../gmail_smtp/gmail_smtp.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { SendgridService } from '../sendgrid/sendgrid.service';
 import { UserService } from '../user/user.service';
 
 import { AuthController } from './auth.controller';
@@ -39,7 +39,7 @@ import { KakaoStrategy } from './kakao/kakao.strategy';
     JwtAuthGuard,
     UserService,
     AuthService,
-    SendgridService,
+    GmailSmtpService,
     PrismaService,
   ],
   exports: [JwtAuthGuard],

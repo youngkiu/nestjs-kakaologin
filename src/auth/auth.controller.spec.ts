@@ -2,8 +2,8 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { GmailSmtpService } from '../gmail_smtp/gmail_smtp.service';
 import { PrismaService } from '../prisma/prisma.service';
-import { SendgridService } from '../sendgrid/sendgrid.service';
 import { UserService } from '../user/user.service';
 
 import { AuthController } from './auth.controller';
@@ -20,7 +20,7 @@ describe('KakaoAuthController', () => {
         UserService,
         ConfigService,
         JwtService,
-        SendgridService,
+        GmailSmtpService,
         PrismaService,
       ],
     }).compile();

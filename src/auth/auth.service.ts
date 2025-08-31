@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { SendgridService } from '../sendgrid/sendgrid.service';
+import { GmailSmtpService } from '../gmail_smtp/gmail_smtp.service';
 
 import { CallbackUserDataDto } from './dto/callback_user_data.dto';
 import { JwtPayloadDto } from './dto/jwt.payload.dto';
@@ -10,13 +10,13 @@ import { JwtPayloadDto } from './dto/jwt.payload.dto';
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly sendgridService: SendgridService,
+    private readonly gmailSmtpService: GmailSmtpService,
   ) {}
 
   async login(userData: CallbackUserDataDto) {
     const { provider, providerId, email } = userData;
 
-    await this.sendgridService.sendLogin(email);
+    await this.gmailSmtpService.sendLogin(email);
 
     const payload: JwtPayloadDto = { provider, providerId };
     return {
