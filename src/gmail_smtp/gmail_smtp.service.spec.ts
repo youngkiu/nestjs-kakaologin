@@ -1,16 +1,15 @@
 import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { SendgridService } from './sendgrid.service';
+import { GmailSmtpService } from './gmail_smtp.service';
 
-describe('SendgridService', () => {
-  let service: SendgridService;
-  let configService: ConfigService;
+describe('GmailSmtpService', () => {
+  let service: GmailSmtpService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        SendgridService,
+        GmailSmtpService,
         {
           provide: ConfigService,
           useValue: {
@@ -24,8 +23,7 @@ describe('SendgridService', () => {
       ],
     }).compile();
 
-    service = module.get<SendgridService>(SendgridService);
-    configService = module.get<ConfigService>(ConfigService);
+    service = module.get<GmailSmtpService>(GmailSmtpService);
   });
 
   it('should be defined', () => {

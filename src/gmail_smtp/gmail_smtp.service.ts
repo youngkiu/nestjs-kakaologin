@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
 
 @Injectable()
-export class SendgridService {
-  private readonly logger = new Logger(SendgridService.name);
+export class GmailSmtpService {
+  private readonly logger = new Logger(GmailSmtpService.name);
   private transporter: nodemailer.Transporter;
 
   constructor(private readonly configService: ConfigService) {

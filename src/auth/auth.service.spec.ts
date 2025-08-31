@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { SendgridService } from '../sendgrid/sendgrid.service';
+import { GmailSmtpService } from '../gmail_smtp/gmail_smtp.service';
 
 import { AuthService } from './auth.service';
 
@@ -11,7 +11,7 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AuthService, ConfigService, JwtService, SendgridService],
+      providers: [AuthService, ConfigService, JwtService, GmailSmtpService],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
